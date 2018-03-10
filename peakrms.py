@@ -247,7 +247,7 @@ if __name__ == "__main__":
 #   Since the histograms of peaks are no default distribution, except the peak
 #   histogram, which can be something like laplacian, percentiles are used to
 #   determine the mean rms. Everything above or equal to the 80% percentile
-#   is used.
+#   is used for peaks.
 #==============================================================================
     if not args.silent:
         print("mean Peak:                    ",meanPeak, "dB")
