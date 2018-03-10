@@ -3,6 +3,9 @@
 Peak and RMS meter for audio files. Takes an audio file and plots peaks and RMS, unweighted and a-weighted.
 Bear with me, this is a quick and dirty hack, but with comments !
 
+Since pictures tell a thousand words:
+![Example picture](example.png?raw=true)
+
 Prerequisites
 -------------
 - python3 (2 might work fine, too)
