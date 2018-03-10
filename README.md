@@ -5,8 +5,8 @@ Bear with me, this is a quick and dirty hack, but with comments !
 
 Prerequisites
 -------------
-python3 (2 might work fine, too)
-ffmpeg
+- python3 (2 might work fine, too)
+- ffmpeg
 
 ### Modules for python
 
@@ -30,14 +30,14 @@ This should install python and all necessary prerequisites.
 
 
 ### Windows
-Install [WinPython](https://winpython.github.io/) and add python to the path. Recommendes is verson 3.6+ and x64.
+Install [WinPython](https://winpython.github.io/) and add python to the path. Recommended is verson 3.6+ and x64.
 Then open a command line by clicking start and typing "cmd", then press Enter.
 
 Type the following command to install librosa (and press Enter):
 ```
 python -m pip install librosa
 ```
-Download and install ffmpeg: [link](https://www.ffmpeg.org/)
+Download and install [ffmpeg](https://www.ffmpeg.org/)
 Add ffmpeg to the windows path, so it can be invoked by librosa.
 
 
