@@ -8,8 +8,6 @@ Created on Mon Feb 19 19:34:43 2018
 from __future__ import division
 import librosa
 import matplotlib
-#matplotlib.use("Agg")
-#import matplotlib.pyplot as plt
 import numpy as np
 from numpy import pi, polymul
 from scipy.signal import bilinear, lfilter
@@ -166,11 +164,11 @@ if __name__ == "__main__":
 #     output, too
 #==============================================================================
     import matplotlib.pyplot as plt
+    
 #==============================================================================
 #     use a dark background, because fancy and professional
 #==============================================================================
     plt.style.use('dark_background')
-
 
 #==============================================================================
 #     basename for display in plot titles
