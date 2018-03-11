@@ -3,7 +3,7 @@
 Peak and RMS meter for audio files. Takes an audio file and plots peaks and RMS, unweighted and a-weighted.
 Bear with me, this is a quick and dirty hack, but with comments !
 
-If only wave are used as input, ffmpeg is optional.
+If only wave files are used as input, ffmpeg is optional.
 
 Since pictures tell a thousand words:
 ![Example picture](example.png?raw=true)
