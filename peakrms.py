@@ -8,7 +8,8 @@ Created on Mon Feb 19 19:34:43 2018
 from __future__ import division
 import librosa
 import matplotlib
-import matplotlib.pyplot as plt
+#matplotlib.use("Agg")
+#import matplotlib.pyplot as plt
 import numpy as np
 from numpy import pi, polymul
 from scipy.signal import bilinear, lfilter
@@ -25,11 +26,6 @@ try:
     from mpldatacursor import datacursor
 except:
     cursor=False
-
-#==============================================================================
-# use a dark background, because fancy and professional
-#==============================================================================
-plt.style.use('dark_background')
 
 #==============================================================================
 # ignore warnings. Only for divide by zero in numpy.log10
@@ -164,6 +160,17 @@ if __name__ == "__main__":
 #==============================================================================
     if args.noplot:
         matplotlib.use('Agg')
+
+#==============================================================================
+#     import pyplot after choosing the backend so it will work without visual
+#     output, too
+#==============================================================================
+    import matplotlib.pyplot as plt
+#==============================================================================
+#     use a dark background, because fancy and professional
+#==============================================================================
+    plt.style.use('dark_background')
+
 
 #==============================================================================
 #     basename for display in plot titles
