@@ -157,7 +157,9 @@ if __name__ == "__main__":
 #    or Wayland (Linux).
 #==============================================================================
     if args.noplot:
-        matplotlib.use('Agg')
+        matplotlib.use("Agg")
+    else:
+        matplotlib.use("TkAgg")
 
 #==============================================================================
 #     import pyplot after choosing the backend so it will work without visual
