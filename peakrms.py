@@ -181,10 +181,13 @@ if __name__ == "__main__":
     y, sr = librosa.load(args.path, sr=None, mono=True)
 
 #==============================================================================
-#     calculate peaks in dB
+#     calculate peaks in dB, with 200ms window for display and 2s window for
+#     PAR (peak to average ratio) calculation.
 #==============================================================================
     yPeak = reduceToPeak(y, sr)
     yDb = toDb(np.abs(yPeak))
+    yPeak2000 = reduceToPeak(y, sr, windowsize=100)
+    yPeak2000Db = toDb(np.abs(yPeak2000))
     
 #==============================================================================
 #     calculate RMS in dB
@@ -196,7 +199,13 @@ if __name__ == "__main__":
     yA = lfilter(b, a, y)
     rmsA = toRms(yA, sr)
     rmsADb = toDb(rmsA)
-    
+
+#==============================================================================
+#     PAR calculation
+#==============================================================================
+    parDb = yPeak2000Db - rmsADb
+    parDbUnweighted = yPeak2000Db - rmsDb
+
 #==============================================================================
 #     calculate times for display
 #==============================================================================
@@ -236,13 +245,14 @@ if __name__ == "__main__":
 #==============================================================================
     rmsPercentileLower = np.percentile(rmsA, 25)
     rmsPercentileUpper = np.percentile(rmsA, 50)
-    
+    parPercentileLower = np.percentile(parDb, 2.5)
+    parPercentileUpper = np.percentile(parDb, 97.5)
+    parUnweightedPercentileLower = np.percentile(parDb, 50)
+    parUnweightedPercentileUpper = np.percentile(parDb, 97.5)
     peakPercentileUpper = np.percentile(yPeak, 80)
-    
     meanRms50Percent = toDb(np.mean(rmsA[np.where(np.logical_and(rmsA>rmsPercentileLower,\
                                         rmsA<=rmsPercentileUpper))]))
     meanPeak80Percent = toDb(np.mean(yPeak[np.where(yPeak >= peakPercentileUpper)]))
-    
     meanRmsA = toDb(np.mean(rmsA))
     meanPeak = toDb(np.mean(yPeak))
     
@@ -256,12 +266,11 @@ if __name__ == "__main__":
 #==============================================================================
     if not args.silent:
         print("mean Peak:                    ",meanPeak, "dB")
-        print("mean Peak 80%:                ", meanPeak80Percent, "dB")
+        print("mean Peak, upper 80%:         ", meanPeak80Percent, "dB")
         print("mean rmsA:                    ",meanRmsA, "dB")
         print("mean rmsA 50%:                ", meanRms50Percent, "dB")
-        print("peak to average:              ",meanPeak - meanRmsA, "dB A-weighted")
-        print("peak to average (percentiles):",meanPeak80Percent-meanRms50Percent, "dB A-weighted")
-
+        print("mean PAR:                     ",np.ma.masked_invalid(parDb).mean(), "dB A-weighted")
+        print("mean PAR:                     ",np.ma.masked_invalid(parDbUnweighted).mean(), "dB unweighted")
 #==============================================================================
 #    peak and rms meter    
 #==============================================================================
@@ -276,7 +285,10 @@ if __name__ == "__main__":
     plt.ylabel("dBFS")
     plt.legend()
     ax.xaxis.set_major_formatter(formatterTime)
-    plt.grid()
+    ml = matplotlib.ticker.AutoMinorLocator(n=5)
+    ax.yaxis.set_minor_locator(ml)
+    ax.yaxis.grid(which="minor", color="#272727", linestyle=":", linewidth=0.7)
+    plt.grid("on")
     plt.subplots_adjust(left=0.05, bottom=0.05, right=0.95, top=0.95,\
                 wspace=None, hspace=None)
 
